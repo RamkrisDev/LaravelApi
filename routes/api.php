@@ -26,8 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
     Route::apiResource("member",MemberController::class);
+    Route::get('list',[DeviceController::class,'list'],[ 'headers' => [
+        'Authorization' => 'Bearer '.session()->get('token'),
+        'Accept' => 'application/json',
+    ],]);
 
     });
+
 Route::get('data',[userapi::class,'getdata']);
 
 
@@ -48,7 +53,7 @@ Route::post("save",[Devicepost::class,'testapp']);
 
 // Route::apiResource("member",MemberController::class);
 
-Route::get("login",[UserController::class,'index']);
+Route::post("login",[UserController::class,'index']);
 
 
 

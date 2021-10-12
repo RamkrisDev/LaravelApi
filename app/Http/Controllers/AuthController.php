@@ -55,6 +55,8 @@ class AuthController extends Controller
         $user=User::where('email',$request->email)->first();
 
         $tokemresult=$user->createToken('authtoken')->plainTextToken;
+        //try
+        session()->put('token',$tokemresult);
 
         return response()->json([
             "status"=>200,
